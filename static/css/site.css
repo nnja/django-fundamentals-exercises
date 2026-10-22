@@ -1,0 +1,292 @@
+/* RescueScout's stylesheet. It styles plain HTML elements by where they sit
+   on the page, so the templates need no classes. */
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../fonts/BricolageGrotesque-latin.woff2") format("woff2");
+  font-weight: 400 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("../fonts/Figtree-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  --paper: #f3f6f1;
+  --card: #ffffff;
+  --ink: #15302a;
+  --ink-soft: #4f655c;
+  --line: #d9e2d8;
+  --accent: #f2b233;
+  --accent-deep: #d9951a;
+  --moss: #2f6b4f;
+  --ok: #2f6b4f;
+  --warn: #b6761c;
+  --done: #6f6a66;
+  --danger: #b3261e;
+  --radius: 12px;
+  --radius-small: 8px;
+  --shadow: 0 1px 2px rgb(21 48 42 / 6%), 0 10px 28px rgb(21 48 42 / 8%);
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-text: "Figtree", "Segoe UI", system-ui, sans-serif;
+}
+
+/* --- Page --- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+body {
+  margin: 0;
+  border-top: 5px solid var(--accent);
+}
+
+body > header,
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 24px;
+}
+
+body > header {
+  border-bottom: 1px solid var(--line);
+}
+
+body > header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+body > header nav a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+body > header nav a:first-child {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+body > header nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+}
+
+main {
+  padding-top: 20px;
+  padding-bottom: 72px;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+}
+
+p {
+  margin: 0 0 1em;
+  max-width: 66ch;
+}
+
+a {
+  color: var(--moss);
+}
+
+/* The link to the page or order being shown. */
+a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* An animal's photo on its own page. */
+main > img {
+  width: 480px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+
+/* --- The list of animals: a grid of cards --- */
+
+main > ul {
+  list-style: none;
+  margin: 24px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+main > ul > li {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  padding: 0 0 14px;
+}
+
+main > ul img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--line);
+}
+
+main > ul h2,
+main > ul p {
+  margin: 12px 14px 0;
+}
+
+main > ul h2 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+main > ul p {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* The page links under the list. */
+main > nav {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  color: var(--ink-soft);
+}
+
+/* --- Forms --- */
+
+form {
+  max-width: 620px;
+  margin-bottom: 18px;
+}
+
+form > div {
+  margin-bottom: 18px;
+}
+
+/* The list's search form, the only GET form: its fields and button on one
+   line, wrapping on a narrow screen. */
+form[method="get"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  max-width: 760px;
+}
+
+form[method="get"] > div {
+  flex: 1 1 200px;
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-small);
+  padding: 10px 12px;
+}
+
+/* The browser's own arrow is replaced by a chevron in --ink-soft. */
+select {
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%234f655c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+button {
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--accent);
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--accent-deep);
+}
+
+/* Django writes a field's errors as <ul class="errorlist">. */
+.errorlist {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.helptext {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  body > header,
+  main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  main > img {
+    width: 100%;
+  }
+}
