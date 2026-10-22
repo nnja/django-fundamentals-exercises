@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ animal.name }} · RescueScout{% endblock %}
+
+{% block content %}
+  {% if animal.photo %}
+    <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
+  {% endif %}
+  <h1>{{ animal.name }}</h1>
+  <p>Status: {{ animal.get_status_display }}</p>
+  <p>Species: {{ animal.get_species_display }}</p>
+  {% if animal.breed %}
+    <p>Breed: {{ animal.breed }}</p>
+  {% endif %}
+  <p>Age: {{ animal.age_label }}</p>
+  <p>Arrived: {{ animal.intake_date|date:"j F Y" }}</p>
+  {{ animal.description|linebreaks }}
+  <p><a href="{% url 'animals:list' %}">All animals</a></p>
+  {% if animal.status == "available" %}
+    <a href="{% url 'animals:adopt' animal.pk %}">Apply to adopt {{ animal.name }}</a>
+  {% endif %}
+{% endblock %}
