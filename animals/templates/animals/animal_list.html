@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul>
+    {% for animal in page_obj %}
+      <li>
+        {% if animal.photo %}
+          <img src="{{ animal.photo.url }}" alt="">
+        {% endif %}
+        <h2><a href="{% url 'animals:detail' animal.pk %}">{{ animal.name }}</a></h2>
+        <p>{{ animal.breed|default:animal.get_species_display }}, {{ animal.age_label }}, {{ animal.get_status_display }}</p>
+      </li>
+    {% empty %}
+      <li>No animals are looking for a home right now.</li>
+    {% endfor %}
+  </ul>
+  <nav>
+    {% if page_obj.has_previous %}
+      <a href="{% querystring page=page_obj.previous_page_number %}">Previous</a>
+    {% endif %}
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    {% if page_obj.has_next %}
+      <a href="{% querystring page=page_obj.next_page_number %}">Next</a>
+    {% endif %}
+  </nav>
+{% endblock %}
